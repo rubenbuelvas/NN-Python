@@ -10,6 +10,19 @@ def NN(m1, m2, w1, w2, b):
     return sigmoid(z)
 
 
+def cost(x):
+    return (x-4)**2
+
+
+def numSlope(x):
+    h = 0.0001
+    return (cost(x+h)-cost(x))/h
+
+
+def slope(x):
+    return 2*(x-4)
+
+
 w1 = numpy.random.randn()
 w2 = numpy.random.randn()
 b = numpy.random.randn()
@@ -39,4 +52,13 @@ else:
 print("I think it's " + predictionText + ", I'm " + str(int(howSure)) +
       "% sure")
 print("And it's actually " + str(colors[randData[2]]))
+print("----------------------------------")
+print("Slope = " + str(slope(prediction)))
+print("----------------------------------")
+
+b = slope(prediction)
+for i in range(100):
+    b = b-0.1*slope(b)
+    print(str(b))
+
 print("----------------------------------")
