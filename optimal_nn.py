@@ -19,24 +19,39 @@ data = [[3, 1.5, 1], [2, 1, 0], [4, 1.5, 1], [3, 1, 0], [3.5, 0.5, 1], [2, 0.5, 
 
 colors = ["blue", "red"]
 
-pos = numpy.random.randint(len(data))
-randData = data[pos]
-
 print("----------------------------------")
-print("Flower #" + str(pos + 1))
+for i in range(len(data)):
+    print("Flower #" + str(i+1))
 
-m1 = randData[0]
-m2 = randData[1]
+    m1 = data[i][0]
+    m2 = data[i][1]
+
+    prediction = NN(m1, m2, w1, w2, b)
+    predictionText = colors[int(numpy.round(prediction))]
+
+    # print("Result = " + str(prediction))
+    if numpy.round(prediction) == 0:
+        howSure = (1 - prediction) * 100
+    else:
+        howSure = prediction * 100
+    print("I think it's " + predictionText + ", I'm " + str(int(howSure)) +
+          "% sure")
+    print("And it's actually " + str(colors[data[i][2]]))
+    print("----------------------------------")
+
+
+print("Mystery flower")
+# Default red (3, 1.5)
+m1 = 3
+m2 = 1.5
 
 prediction = NN(m1, m2, w1, w2, b)
 predictionText = colors[int(numpy.round(prediction))]
 
-# print("Result = " + str(prediction))
 if numpy.round(prediction) == 0:
     howSure = (1 - prediction) * 100
 else:
     howSure = prediction * 100
 print("I think it's " + predictionText + ", I'm " + str(int(howSure)) +
       "% sure")
-print("And it's actually " + str(colors[randData[2]]))
 print("----------------------------------")
